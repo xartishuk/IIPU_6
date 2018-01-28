@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,8 +33,11 @@ namespace WirelessManager.Scanner
                     wifi.ConnectionQuality = network.wlanSignalQuality.ToString() + "%";
                     wifi.AuthenticationType = network.dot11DefaultAuthAlgorithm.ToString();
                     if (wifiList.Contains(wifi)) { continue; }
-                    wifi.MAC = wlanIface.GetNetworkBssList()[macIndex].dot11Bssid.Select(b => b.ToString("x2")).Aggregate((cur, next) => cur + ':' + next);//.Trim((char)0);
-                    wifi.Connected = false;
+                    try
+                    {
+                        wifi.MAC = wlanIface.GetNetworkBssList()[macIndex].dot11Bssid.Select(b => b.ToString("x2")).Aggregate((cur, next) => cur + ':' + next);//.Trim((char)0);
+                    } catch { break; }
+                    wifi.Connected = network.flags.HasFlag(Wlan.WlanAvailableNetworkFlags.Connected);
                     wifiList.Add(wifi);
                     macIndex++;
                 }
