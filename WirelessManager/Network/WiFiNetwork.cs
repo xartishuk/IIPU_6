@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,7 +28,6 @@ namespace WirelessManager.Network
             var wifi = (WiFiNetwork)obj;
 
             if (this.Name != wifi.Name) { return false; }
-            //if (this.MAC != wifi.MAC) { return false; }
             if (this.ConnectionQuality != wifi.ConnectionQuality) { return false; }
             if (this.AuthenticationType != wifi.AuthenticationType) { return false; }
             return true;
